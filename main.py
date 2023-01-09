@@ -11,7 +11,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-##Cafe TABLE Configuration
 class Cafe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), unique=True, nullable=False)
@@ -31,7 +30,6 @@ def home():
     return render_template("index.html")
 
 
-## HTTP GET - Read Record
 @app.route("/random", methods=["GET"])
 def random():
     cafes = Cafe.query.all()
@@ -46,7 +44,6 @@ def search():
     return str(cafe.id)
 
 
-## HTTP POST - Create Record
 @app.route("/add", methods=["POST"])
 def add():
     _id = request.args.get("id")
@@ -80,7 +77,6 @@ def add():
     return str(cafe.name)
 
 
-## HTTP PUT/PATCH - Update Record
 @app.route("/update", methods=["PATCH"])
 def update():
     _id = request.args.get("id")
@@ -91,7 +87,6 @@ def update():
     return cafe.name
 
 
-## HTTP DELETE - Delete Record
 @app.route("/delete/<id>", methods=["DELETE"])
 def delete(id):
     cafe = db.session.query(Cafe).get(id)
@@ -100,8 +95,7 @@ def delete(id):
     return cafe.name
 
 
-## HTTP DENEME - Deneme
-@app.route("/random", methods=["DENEME"])
+@app.route("/random", methods=["TEST"])
 def deneme():
     return jsonify(response={"success": "Successfully deleted the cafe from the database."}), 200
 
